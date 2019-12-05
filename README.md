@@ -13,5 +13,5 @@ The calculation procedures of the K functions are optimized and accelerated by a
 4) Customized serialization with compact representations of spatiotemporal objects and indexes is developed to lower the cost of data transmission.
 
 Please refer to the published peer-review journal paper on Future Generation Computer Systems for more information: 
-Wang, Y., Gui, Z.*, Wu, H., Peng, D., Wu, J., Cui, Z., 2020. Optimizing and Accelerating Space-Time Ripley’s K Function based on Apache Spark for Distributed Spatiotemporal Point Pattern Analysis. Future Generation Computer Systems, 2020, 105, 96-118. doi.org/10.1016/j.future.2019.11.036
+Wang, Y., Gui, Z.*, Wu, H., Peng, D., Wu, J., Cui, Z., 2020. Optimizing and Accelerating Space-Time Ripley’s K Function based on Apache Spark for Distributed Spatiotemporal Point Pattern Analysis. Future Generation Computer Systems, 2020, 105, 96-118. doi.org/10.1016/j.future.2019.11.036    
 https://www.sciencedirect.com/science/article/pii/S0167739X19314815
