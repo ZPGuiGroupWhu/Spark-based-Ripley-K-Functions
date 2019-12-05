@@ -8,4 +8,4 @@ The calculation procedures of the K functions are optimized and accelerated by a
 3) Spatiotemporal partitioning using KDB-tree is adopted to decrease ghost buffer redundancy in partitions and support near-balanced distributed processing; 
 4) Customized serialization with compact representations of spatiotemporal objects and indexes is developed to lower the cost of data transmission.
 
-Please refer the published journal paper on Future Generation Computer Systems for more information: https://www.sciencedirect.com/science/article/pii/S0167739X19314815
+Please refer to the published journal paper on Future Generation Computer Systems for more information: https://www.sciencedirect.com/science/article/pii/S0167739X19314815
