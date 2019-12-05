@@ -1,1 +1,1 @@
-# Spark-based-Ripley-K-Functions-for-Point-Pattern-Analysis
+# Spark-based-Ripley-K-Functions
