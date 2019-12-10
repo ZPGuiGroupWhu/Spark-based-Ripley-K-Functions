@@ -1,0 +1,3 @@
+object RipleysKScalaExample extends App{
+
+}
