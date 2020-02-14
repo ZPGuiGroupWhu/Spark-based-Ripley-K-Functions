@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Ripley's K Function Visual Analysis System"
+    />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="stylesheet" href="index.css" type="text/css" />
+    <title>Ripley's K 函数可视化分析系统</title>
+
+    <link rel="stylesheet" href="lib/leaflet.css" />
+    <link rel="stylesheet" href="lib/leaflet.draw/leaflet.draw.css" />
+    <link rel="stylesheet" href="lib/nanocube2.css" />
+
+    <script src="lib/jquery-1.11.2.min.js"></script>
+    <script src="lib/d3.v3.js" charset="utf-8"></script>
+    <script src="lib/leaflet-src.js"></script>
+    <script src="lib/leaflet.draw/leaflet.draw-src.js"></script>
+    <script src="lib/colorbrewer.js"></script>
+    <script src="lib/nanocube3.js"></script>
+    <script src="lib/TileLatLngUtils.js"></script>
+    <script src="lib/NanocubeLayer.js"></script>
+    <script src="lib/Timeseries.js"></script>
+    <script src="lib/QueryConstraint.js"></script>
+    <script src="lib/Variables.js"></script>
+    <script src="lib/Model.js"></script>
+    <script src="lib/comsub.js"></script>
+    <script src="lib/50.js"></script>
+    <script src="lib/42.js"></script>
+    <script>
+      //main
+        var cfg = {
+          "title": "finalImputation.csv",
+          "url": "http://192.168.200.179:29512",
+          "latlonbox": {
+            "max": {
+              "location": [
+                54.74858432186842,
+                136.3480224609375
+              ]
+            },
+            "min": {
+              "location": [
+                12.33271773580635,
+                82.56768798828125
+              ]
+            }
+          },
+          "tilesurl": "http://{s}.tile.osm.org/{z}/{x}/{y}.png",
+          "heatmapmaxlevel": 25,
+          "div": {
+            "date": {
+              "opacity": 0.8,
+              "bottom": "1em",
+              "height": "10em",
+              "width": "75%",
+              "z-index": 1,
+              "position": "absolute",
+              "background-color": "#555",
+              "left": "1ch"
+            },
+            "location": {
+              "padding": 0,
+              "width": "100%",
+              "z-index": 0,
+              "float": "left",
+              "margin": 0,
+              "height": "100%"
+            }
+          }
+        };
+        function initNanocube(config) {
+            var nc = new Nanocube({
+              url: config.url,
+              ready: function (nc) {
+                //set options (colormap etc)
+                var options = {
+                  nanocube: nc,
+                  config: config,
+                  tilesurl: config.tilesurl,
+                  heatmapmaxlevel: config.heatmapmaxlevel
+                };
+
+                //create the model
+                var model = new Model(options);
+
+                //set the initial view
+                for (var sp in config.latlonbox.min) {
+                  model.spatial_vars[sp]
+                    .map.fitBounds([config.latlonbox.min[sp],
+                    config.latlonbox.max[sp]]);
+                }
+              }
+            });
+          };
+
+        $(function () {
+          initNanocube(cfg);
+        });
+    </script>
+  
+  </head>
+  <body style="width: 100vw;">
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="main"></div>
+    <!-- <div id="location" style="height:100%; z-index: 0; position:relative"></div> --!>
+  </body>
+</html>

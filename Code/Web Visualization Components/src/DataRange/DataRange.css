@@ -1,0 +1,18 @@
+.data-range .option-name {
+  display: inline-block;
+  position: relative;
+  left: -100px;
+  top: -5px;
+  margin: 8px 20px 0 0;
+}
+
+.data-range .data-select {
+  width: 120px;
+  margin-left: 10px;
+}
+.data-range .ant-input {
+  padding: 4px 12px 4px 0px !important; 
+}
+.data-range .radio-text {
+  color: white;
+}
