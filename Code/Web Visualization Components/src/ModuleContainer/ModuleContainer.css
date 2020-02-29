@@ -42,3 +42,6 @@
 .margin-top, .margin-top h3{
   color: white;
 }
+.hidden {
+  display: none;
+}

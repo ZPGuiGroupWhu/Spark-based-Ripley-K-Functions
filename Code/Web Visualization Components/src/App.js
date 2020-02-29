@@ -10,6 +10,8 @@ import CalcuInfo from './CalcuInfo/CalcuInfo';
 import DateStatistic from './DateStatistic/DateStatistic';
 import Result from './Result/Result';
 import Map from './Map/Map';
+import Layer from './Layer/Layer';
+import Nano from './Nano/Nano';
 
 
 export default class App extends React.Component {
@@ -25,6 +27,7 @@ export default class App extends React.Component {
         GContent: 2,
         BContent: 3,
       },
+      layer: 2,
     };
   };
   changeDimension = (isChecked) => {
@@ -33,21 +36,33 @@ export default class App extends React.Component {
 
   changeColor = (colorObject) => {
     this.setState({colorObj: colorObject});
+  };
 
+  changeLayer = (layer) => {
+    this.setState({layer: layer});
   };
 
   render() {
+    const layer = this.state.layer;
     return (
       <div>
-        <Map dimension={this.state.dimension} colorObj={this.state.colorObj} isRShow={this.state.isRShow}/>
-        <div className="left-moudles">
-          <ModuleContainer  title="点数据展示控制" >
-            <VisualController changeDimension={this.changeDimension} changeColor={this.changeColor}/>
-          </ModuleContainer>
-          <ModuleContainer  title="点数据概况" >
+        <div className={layer === 2 ? 'hidden' : ''}>
+          <Map dimension={this.state.dimension} colorObj={this.state.colorObj} isRShow={this.state.isRShow} />
+        </div>
+        <div className={layer === 1 ? 'hidden' : ''}>
+          <Nano />
+        </div>
+        <div className={`left-moudles ${layer === 2 ? 'bottom' : ''}`}>
+          <ModuleContainer  title="点数据概况" close="true">
             <DataIntro />
           </ModuleContainer>
-          <ModuleContainer  title="时间统计" autowidth="true" dark="true" close="true">
+          <ModuleContainer  title="点数据展示控制" hidden={layer === 2}>
+            <VisualController changeDimension={this.changeDimension} changeColor={this.changeColor}/>
+          </ModuleContainer>
+          <ModuleContainer  title="图层选择" >
+            <Layer changeLayer={this.changeLayer}/>
+          </ModuleContainer>
+           <ModuleContainer  title="时间统计" autowidth="true" dark="true" hidden={layer === 1}>
             <DateStatistic />
           </ModuleContainer>
         </div>

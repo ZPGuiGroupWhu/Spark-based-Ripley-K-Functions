@@ -37,6 +37,7 @@
     <script src="lib/50.js"></script>
     <script src="lib/42.js"></script>
     <script>
+      document.oncontextmenu = new Function('return false');
       //main
         var cfg = {
           "title": "finalImputation.csv",
@@ -112,6 +113,5 @@
   <body style="width: 100vw;">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="main"></div>
-    <!-- <div id="location" style="height:100%; z-index: 0; position:relative"></div> --!>
   </body>
 </html>
