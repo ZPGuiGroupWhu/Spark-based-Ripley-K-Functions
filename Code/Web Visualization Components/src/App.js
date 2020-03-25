@@ -12,13 +12,14 @@ import Result from './Result/Result';
 import Map from './Map/Map';
 import Layer from './Layer/Layer';
 import Nano from './Nano/Nano';
-
+import NanoCharts from './NanoCharts/NanoCharts';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       dimension: 3,
+      scale: 1,
       colorObj: {
         isRShow: true, 
         isGShow: true,
@@ -27,7 +28,18 @@ export default class App extends React.Component {
         GContent: 2,
         BContent: 3,
       },
-      layer: 2,
+      layer: 1,
+      params:{
+        KType: 'S',
+        DataCate1: 0,
+        DataCate2: 1,
+        SpatialMax: 2000,
+        TimeMax: 20,
+        SpatialStep: 20,
+        TimeStep: 20,
+        simuTime: 100,
+      },
+      calResult: null,
     };
   };
   changeDimension = (isChecked) => {
@@ -38,31 +50,46 @@ export default class App extends React.Component {
     this.setState({colorObj: colorObject});
   };
 
+  changeScale = (scale) => {
+    this.setState({scale: scale});
+  }
+
   changeLayer = (layer) => {
     this.setState({layer: layer});
   };
+
+  updateParams = (params) => {
+    this.setState({params: params});
+  }
+
+  getCalResult = (calResult) => {
+    this.setState({calResult: calResult});
+  }
 
   render() {
     const layer = this.state.layer;
     return (
       <div>
         <div className={layer === 2 ? 'hidden' : ''}>
-          <Map dimension={this.state.dimension} colorObj={this.state.colorObj} isRShow={this.state.isRShow} />
+          <Map dimension={this.state.dimension} colorObj={this.state.colorObj} scale={this.state.scale}/>
         </div>
         <div className={layer === 1 ? 'hidden' : ''}>
           <Nano />
         </div>
         <div className={`left-moudles ${layer === 2 ? 'bottom' : ''}`}>
-          <ModuleContainer  title="点数据概况" close="true">
+          <ModuleContainer  title="点数据概况" close="true" hidden={layer === 2}>
             <DataIntro />
           </ModuleContainer>
-          <ModuleContainer  title="点数据展示控制" hidden={layer === 2}>
-            <VisualController changeDimension={this.changeDimension} changeColor={this.changeColor}/>
+          <ModuleContainer  title="展示控制" hidden={layer === 2}>
+            <VisualController changeDimension={this.changeDimension} changeColor={this.changeColor} changeScale={this.changeScale}/>
           </ModuleContainer>
-          <ModuleContainer  title="图层选择" >
+          <ModuleContainer  title="图层选择" close="true">
             <Layer changeLayer={this.changeLayer}/>
           </ModuleContainer>
-           <ModuleContainer  title="时间统计" autowidth="true" dark="true" hidden={layer === 1}>
+          <ModuleContainer  title="属性选择" autowidth="true" hidden={layer === 1}>
+            <NanoCharts />
+          </ModuleContainer>
+          <ModuleContainer  title="时间统计" autowidth="true" dark="true" hidden={layer === 1}>
             <DateStatistic />
           </ModuleContainer>
         </div>
@@ -74,13 +101,13 @@ export default class App extends React.Component {
             <DataRange />
           </ModuleContainer>
           <ModuleContainer  right="true" title="参数选择" >
-            <Parameter />
+            <Parameter updateParams={this.updateParams}/>
           </ModuleContainer>
           <ModuleContainer  right="true" title="计算信息" >
-            <CalcuInfo />
+            <CalcuInfo params={this.state.params} getCalResult={this.getCalResult}/>
           </ModuleContainer>
           <ModuleContainer  right="true" title="结果展示" >
-            <Result />
+            <Result calResult={this.state.calResult}/>
           </ModuleContainer>
         </div>
       </div>

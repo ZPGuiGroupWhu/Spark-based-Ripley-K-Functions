@@ -30,6 +30,8 @@
     <script src="lib/TileLatLngUtils.js"></script>
     <script src="lib/NanocubeLayer.js"></script>
     <script src="lib/Timeseries.js"></script>
+    <script src="lib/GroupedBarChart.js"></script>
+    <script src="lib/MultiDonutChart.js"></script>
     <script src="lib/QueryConstraint.js"></script>
     <script src="lib/Variables.js"></script>
     <script src="lib/Model.js"></script>
@@ -76,7 +78,35 @@
               "float": "left",
               "margin": 0,
               "height": "100%"
-            }
+            },
+            "lv1": {
+              "opacity": 0.8,
+              "right": "1ch",
+              "logaxis": false,
+              "height": "29em",
+              "width": "38ch",
+              "z-index": 1,
+              "displaynumcat": 20,
+              "margin-left": "32ch",
+              "position": "absolute",
+              "alpha_order": true,
+              "top": "3em",
+              "background-color": "#555"
+            },
+            "Type": {
+              "opacity": 0.8,
+              "right": "1ch",
+              "logaxis": false,
+              "height": "19em",
+              "width": "58ch",
+              "z-index": 1,
+              "displaynumcat": 20,
+              "margin-left": "12ch",
+              "position": "absolute",
+              "alpha_order": true,
+              "top": "33em",
+              "background-color": "#555"
+            },
           }
         };
         function initNanocube(config) {

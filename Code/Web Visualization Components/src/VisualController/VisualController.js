@@ -13,7 +13,7 @@ export default class VisualController extends React.Component {
       isBShow: true,
       RContent: 1,
       GContent: 2,
-      BContent: 3,
+      BContent: 3
     };
   }
 
@@ -36,11 +36,14 @@ export default class VisualController extends React.Component {
     this.setState({isBShow: isChecked}, this.changeColor);
   }
 
+  changeScale = (value) => {
+    this.props.changeScale(value);
+  }
 
   render() {
     // 获取滑块范围
     const slideParam = {
-      max: 20,
+      max: 10,
       min: 1,
       step: 1,
     };
@@ -48,7 +51,8 @@ export default class VisualController extends React.Component {
     return <div>
       <h3>点数据展示模块</h3>
       <div className="option-name">尺度选择</div>
-      <Slider className="module-slider" max={slideParam.max} min={slideParam.min} step={slideParam.step} defaultValue={10}/>
+      <Slider className="module-slider" max={slideParam.max} min={slideParam.min} step={slideParam.step} defaultValue={1}
+      onChange={this.changeScale}/>
       <div className="option-name">颜色设置</div>
       <div className="color-form">
         <Switch className="red" checkedChildren="红" unCheckedChildren="红" defaultChecked onChange={this.changeRS}/>

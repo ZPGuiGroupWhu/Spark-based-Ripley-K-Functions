@@ -2,9 +2,12 @@
 web project for Ripley's K function
 
 ## demo运行截图
-![demo](https://github.com/BCui4511/KWeb/blob/czs_1203_core/public/demo.png)
+![多尺度多维度空间统计可视化](https://github.com/BCui4511/KWeb/blob/master/public/demo1.png)
+![响应式细粒度点数据热力图](https://github.com/BCui4511/KWeb/blob/master/public/demo2.png)
 
 ### 前提，请安装好node和npm
+node version > 10.15.0
+npm version > 6.9.0
 
 ### 第一步，clone代码到本地
 git clone https://github.com/BCui4511/KWeb.git
@@ -17,7 +20,7 @@ npm start
 
 
 
-## 下面是react app初始应用本身的注释，包括基本命令的使用
+## 本项目基于facebook开源的react app初始应用框架，下面是原项目的注释
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

@@ -5,9 +5,9 @@ import {GeoJsonLayer} from '@deck.gl/layers';
 import {GridCellLayer} from '@deck.gl/layers';
 import {StaticMap} from 'react-map-gl';
 // 1003个feature
-import jsonData from './95_2_1_84.json';
+// import jsonData from './data/95_2_10_84.json';
 // import gridData from './cq3d.json';
-const gridData = jsonData.features;
+// const gridData = jsonData.features;
 
 const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoiYmlsbGN1aSIsImEiOiJjampsYjZpbzQwcm1mM3FwZmppejRzMmNiIn0.Ch9L9-zpzaC21Vm8yxoWpg';
 
@@ -23,9 +23,10 @@ let ID = 0;
 export default class Map extends React.Component {
   constructor(props) {
     super(props);
+    this.jsonDataCache = {}
     this.state = {
       id: 0,
-      layers: this.getLayers(),
+      layers: this.getLayers()
     };
   };
   componentDidUpdate(prevProps){
@@ -33,7 +34,7 @@ export default class Map extends React.Component {
       ID++;
       this.setState({layers: this.getLayers()});
     }
-  }
+  } 
 
   isPropsChange = (prevProps) => {
     let isChange =  prevProps.dimension !== this.props.dimension;
@@ -41,6 +42,7 @@ export default class Map extends React.Component {
     for (let i = 0; i < 6; i++) {
       isChange = isChange || (prevProps.colorObj[keys[i]] !== this.props.colorObj[keys[i]]);
     }
+    isChange = isChange || prevProps.scale !== this.props.scale;
     return isChange;
   }
 
@@ -56,6 +58,15 @@ export default class Map extends React.Component {
   getLayers = () => {
     console.log(this.props.colorObj.isRShow);
     return this.props.dimension === 3 ? [this.get3Dlayer()] : [this.get2Dlayer()];
+  }
+
+  loadJsonData = (path) => {
+    let jsonData = this.jsonDataCache[path];
+    if(!jsonData) {
+      jsonData = require(`${path}`);
+      this.jsonDataCache[path] = jsonData;
+    }
+    return jsonData;
   }
 
   getFillColorArray = (d) => {
@@ -77,6 +88,7 @@ export default class Map extends React.Component {
     if(!(isRShow || isGShow || isBShow)) {
       return null;
     }
+    let jsonData = this.loadJsonData('./data/95_2_' + this.props.scale + '_84.json');
     return new GeoJsonLayer({
       id: ID,
       data: jsonData,
@@ -106,12 +118,14 @@ export default class Map extends React.Component {
     if(!(isRShow || isGShow || isBShow)) {
       return null;
     }
+    let jsonData = this.loadJsonData('./data/95_2_' + this.props.scale + '_84.json');
+    let gridData = jsonData.features;
     return new GridCellLayer({
       id: ID,
       data: gridData,
       pickable: true,
       extruded: true,
-      cellSize: 1000,
+      cellSize: 1000 * this.props.scale,
       elevationScale: 1000,
       getPosition: (d) => {
         const coords = d.geometry.coordinates[0][0];
@@ -139,7 +153,7 @@ export default class Map extends React.Component {
           controller={true}
           layers={this.state.layers}
           >
-          <StaticMap mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN} mapStyle={'mapbox://styles/mapbox/dark-v9'}/>
+          <StaticMap mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN} mapStyle={'mapbox://styles/billcui/ck812rhuo0bv31iqs759izo8m'}/>
           { this._renderTooltip() }
           </DeckGL>
         </div>
