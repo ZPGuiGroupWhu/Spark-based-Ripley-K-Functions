@@ -42,14 +42,18 @@ export default class CalcuInfo extends React.Component {
       executorCores: 8,
       executorMemory: '14g',
     };
-    const url = 'http://192.168.200.179:8080/GeoCommerceService/submit.do';
+    const kType = {
+      type: this.props.params.KType.toLowerCase(),
+    }
+    const url = 'http://localhost:8011/k-result';
 
-    const urlParam = getURLWithParam(url, commitParam);
+    const urlParam = getURLWithParam(url, kType);
     console.log('request url', urlParam);
     // 能正确请求到结果
     fetch(urlParam)
    .then((response) => response.json())
    .then((responseJson) => {
+     responseJson.time = new Date();
     this.props.getCalResult(responseJson);
     console.log(responseJson.maxSpatialDistance);
    })

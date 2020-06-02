@@ -16,3 +16,6 @@
 .data-range .radio-text {
   color: white;
 }
+.ant-radio-wrapper {
+  margin-right: 0px;
+}

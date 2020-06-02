@@ -6,26 +6,49 @@ import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/component/markPoint';
-import ReactEcharts from 'echarts-for-react';
-import data from './confidence.json';
-import CalcuInfo from '../CalcuInfo/CalcuInfo';
 import 'echarts-gl';
-// import dataJson from '../common/result.json';
+import ReactEcharts from 'echarts-for-react';
+// import data from './confidence.json';
+import dataJson from '../common/result.json';
+import dataJson1 from '../common/result1.json';
+import './Result.css';
+import { isEqual } from 'lodash';
+import moment from 'moment'
 
-const base = -data.reduce(function (min, val) {
-  return Math.floor(Math.min(min, val.l));
-}, Infinity);
-let i = -160;
-
+// const base = -data.reduce(function (min, val) {
+//   return Math.floor(Math.min(min, val.l));
+// }, Infinity);
+// let i = -160;
+// 测试数据
+// let calResults = [{ ...dataJson, time: new Date(2020, 1, 1) }, { ...dataJson1, time: new Date(2020, 2, 1) }];
 export default class Result extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      thumbnailKeys: [],
+      calResults:[],
     };
   };
 
-  getOption = () => {
-    // 普通
+  componentDidUpdate(prevProps) {
+    if (!isEqual(this.props.calResult, prevProps.calResult)) {
+      const prevCalResults =this.state.calResults;
+      prevCalResults.push(this.props.calResult);
+      this.setState({calResults: prevCalResults});
+    }
+  };
+
+  getOption2D = (dataJson) => {
+    const conData = [];
+    for (let i = 0; i < dataJson.kest.length; i++) {
+      conData[i] = {
+        value: dataJson.kest[i],
+        l: dataJson.kmin[i],
+        u: dataJson.kmax[i],
+      };
+    }
+    const data = conData;
+    // 空间、交叉k函数
     let option2D = {
       tooltip: {
         trigger: 'axis',
@@ -39,31 +62,29 @@ export default class Result extends React.Component {
             shadowBlur: 0,
             shadowOffsetX: 0,
             shadowOffsetY: 0,
-
             color: '#222'
           }
         },
         formatter: function (params) {
-          return params[2].value;
+          return params.value;
         }
       },
       grid: {
-        top: '3%',
+        top: 10,
         left: '3%',
-        right: '4%',
-        bottom: '3%',
+        right: 10,
+        bottom: 10,
         containLabel: true
       },
       xAxis: {
+        name: 'd',
         type: 'category',
-        data: data.map(function (item) {
-          return item.date;
+        data: data.map(function (item, index) {
+          return index;
         }),
         axisLabel: {
           formatter: function (value, idx) {
-            var date = new Date(value);
-            // return idx === 0 ? value : [date.getMonth() + 1, date.getDate()].join('-');
-            return i++;
+            return idx;
           }
         },
         splitLine: {
@@ -78,15 +99,16 @@ export default class Result extends React.Component {
 
       },
       yAxis: {
+        name: `${dataJson.KType}(d)`,
         axisLabel: {
           formatter: function (val) {
-            return (val - base);
+            return val;
           }
         },
         axisPointer: {
           label: {
             formatter: function (params) {
-              return ((params.value - base) * 100).toFixed(1) + '%';
+              return params.value;
             }
           }
         },
@@ -103,8 +125,8 @@ export default class Result extends React.Component {
       series: [{
         name: 'L',
         type: 'line',
-        data: data.map(function (item) {
-          return item.l + base;
+        data: data.map(function (item, index) {
+          return item.l - index * Math.random();
         }),
         lineStyle: {
           opacity: 0
@@ -114,8 +136,8 @@ export default class Result extends React.Component {
       }, {
         name: 'U',
         type: 'line',
-        data: data.map(function (item) {
-          return item.u - item.l;
+        data: data.map(function (item, index) {
+          return (item.u - item.l + index * Math.random());
         }),
         lineStyle: {
           opacity: 0
@@ -128,7 +150,7 @@ export default class Result extends React.Component {
       }, {
         type: 'line',
         data: data.map(function (item) {
-          return item.value + base;
+          return item.value;
         }),
         hoverAnimation: false,
         symbolSize: 6,
@@ -138,8 +160,13 @@ export default class Result extends React.Component {
         showSymbol: false
       }],
     };
-    // 三维
-    const dataJson = this.props.calResult;
+    
+    return option2D;
+  }
+
+  // 三维
+  // const dataJson = this.props.calResult;
+  getOption3D = (dataJson) => {
     var kest = dataJson.kest;
     var kmax = dataJson.kmax;
     var kmin = dataJson.kmin;
@@ -160,8 +187,9 @@ export default class Result extends React.Component {
     var kestArray = prepareData(kest);
     var kmaxArray = prepareData(kmax);
     var kminArray = prepareData(kmin);
-
+    // 三维的数据源是 ../common/result.json
     let option3D = {
+      title: {},
       tooltip: {},
       legend: {
         show: true,
@@ -265,17 +293,73 @@ export default class Result extends React.Component {
       }
       ]
     };
-
     return option3D;
   }
 
+  getOption = (dataJson) => {
+    if (dataJson.KType === "ST") {
+      return this.getOption3D(dataJson);
+    } else {
+      return this.getOption2D(dataJson);
+    }
+  };
+
+  handleMinimize = (key) => {
+    const { thumbnailKeys } = this.state;
+    this.setState({ thumbnailKeys: [...new Set([...thumbnailKeys, key])] });
+  };
+
+  handelMaximize = (key) => {
+    const { thumbnailKeys } = this.state;
+    const set = new Set(thumbnailKeys);
+    set.delete(key);
+    this.setState({ thumbnailKeys: [...set] });
+  };
+
   render() {
-    const dataJson = this.props.calResult;
-    return <div>
+    const calResults = this.state.calResults;
+    if (!calResults || calResults.length<1){
+      return (<div></div>);
+    }
+    const { thumbnailKeys } = this.state;
+    return (<div>
       <h3>结果展示</h3>
-      {
-        dataJson && <ReactEcharts option={this.getOption()} theme="Imooc" style={{ height: '200px' }} />
-      }
-    </div>
+      <div className="allCharts">
+        <div className="results-container">
+          {
+            calResults
+              .filter(data => thumbnailKeys.findIndex(key => key === data.time) === -1)
+              .map((data, key) => (
+                <div className="chart-wrapper" key={key}>
+                  <ReactEcharts
+                    option={this.getOption(data)}
+                    theme="Imooc"
+                    style={{ height: '200px', width: '290px' }} />
+                  <span>{moment(data.time).format('YYYY-MM-DD h:mm:ss')}</span>
+                  <span className="minimize" onClick={() => this.handleMinimize(data.time)}>缩小</span>
+                </div>
+              ))
+          }
+        </div>
+        <div className={`thumbnails-container ${thumbnailKeys.length === 0 ? 'unshow' : ''}`}>
+          {
+            calResults
+              .filter(data => thumbnailKeys.findIndex(key => key === data.time) !== -1)
+              .map((data, key) => (
+                <div className="thumbnail-wrapper" key={key} title={moment(data.time).format('YYYY-MM-DD h:mm:ss')}
+                  onClick={() => this.handelMaximize(data.time)}>
+                  <ReactEcharts
+                    option={this.getOption(data)}
+                    theme="Imooc"
+                    style={{
+                      height: '200px', width: '290px', transform: 'scale(0.2)', transformOrigin: '0 0'
+                    }} />
+                  <div className="mask"></div>
+                </div>
+              ))
+          }
+        </div>
+      </div>
+    </div>)
   }
 }

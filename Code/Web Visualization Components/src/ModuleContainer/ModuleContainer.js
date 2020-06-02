@@ -17,7 +17,7 @@ export default class ModuleContainer extends React.Component {
     const {autowidth, children, title, right, dark, hidden} = this.props;
     const {isShow} = this.state;
     return <div className={`margin-top ${hidden ? 'hidden' : ''}`}>
-      <div className={`moudle ${autowidth ? '' : 'fix-width'} ${isShow ? '' : 'unshow'} ${dark ? 'dark' : ''}` }>
+      <div className={`moudle ${autowidth ? '' : 'fix-width'} ${isShow ? '' : 'unshow'} ${dark ? 'dark' : ''} ${right ? 'right-module' : ''}` }>
         <div className="close-button" onClick={this.changeShowTag}>关闭</div>
         {children}
       </div>

@@ -106,7 +106,7 @@ export default class App extends React.Component {
           <ModuleContainer  right="true" title="计算信息" >
             <CalcuInfo params={this.state.params} getCalResult={this.getCalResult}/>
           </ModuleContainer>
-          <ModuleContainer  right="true" title="结果展示" >
+          <ModuleContainer  close="true" right="true" title="结果展示" autowidth="true">
             <Result calResult={this.state.calResult}/>
           </ModuleContainer>
         </div>

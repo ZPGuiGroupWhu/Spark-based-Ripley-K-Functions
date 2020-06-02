@@ -112,6 +112,14 @@ export default class Parameter extends React.Component {
                 <InputNumber min={1} max={1000} defaultValue={100} className="Parameter-Select" onChange = {value=>{this.changeParams(value,'simuTime')}}/>
                 </div>
                 <p></p>
+                <div className="Parameter">节点个数
+                <InputNumber min={1} max={8} defaultValue={8} className="Parameter-Select" onChange = {value=>{this.changeParams(value,'nodeNum')}}/>
+                </div>
+                <p></p>
+                <div className="Parameter">内存大小(G)
+                <InputNumber min={1} max={16} defaultValue={8} className="Parameter-Select" onChange = {value=>{this.changeParams(value,'romSize')}}/>
+                </div>
+                <p></p>
             </div>
         );
   }
