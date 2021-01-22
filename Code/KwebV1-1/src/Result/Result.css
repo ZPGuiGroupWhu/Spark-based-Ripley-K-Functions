@@ -11,8 +11,9 @@
   position: relative;
 }
 .minimize {
-  position: absolute;
-  right: 30px;
+  /* position: absolute; */
+  /* right: 30px; */
+  margin-left: 6px;
   bottom: 0px;
   cursor: pointer;
 }
@@ -49,4 +50,14 @@
 ::-webkit-scrollbar-track {
   background: rgba(0,0,0,0.1);
   border-radius: 20px;
+}
+.fullscreen-container {
+  background: rgb(0, 0, 0);
+  top: 10vh;
+  left:20vw;
+  position: fixed;
+  width: 60vw;
+  height: 80vh;
+  z-index: 1000;
+  border-radius: 10px;
 }

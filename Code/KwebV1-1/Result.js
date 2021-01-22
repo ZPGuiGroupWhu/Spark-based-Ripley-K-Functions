@@ -20,26 +20,24 @@ import moment from 'moment'
 // }, Infinity);
 // let i = -160;
 // 测试数据
+// let calResults = [{ ...dataJson1, time: new Date(2020, 1, 1) }, { ...dataJson1, time: new Date(2020, 2, 1) }, { ...dataJson, time: new Date(2020, 3, 1) }];
 let GetResults=[];
 export default class Result extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       thumbnailKeys: [],
-      calResults:[],
-      fullScreen: {
-        isFull: false,
-        content: ''
-      }
+      calResults:[]
     };
   };
 
   componentDidUpdate(prevProps) {
     if (!isEqual(this.props.calResult, prevProps.calResult)) {
-      this.props.calResult['time']= moment().toDate();
+      this.props.calResult['time']= new Date();
       GetResults.push(this.props.calResult);
       this.setState({calResults: GetResults});
-      console.log('calResults',this.state.calResults);    
+      console.log('calResults',this.state.calResults);
+
     }
   };
 
@@ -200,7 +198,8 @@ export default class Result extends React.Component {
         textStyle: {
           color: '#fff'
         },
-        // left: 50,
+        left: 50,
+
       },
       backgroundColor: 'rgba(0,0,0,0)',
       xAxis3D: {
@@ -208,7 +207,7 @@ export default class Result extends React.Component {
         type: 'value',
         nameTextStyle: {
           color: '#fff',
-          fontSize: 10
+          fontSize: 6
         },
         axisLine: { lineStyle: { color: '#fff' } },
         axisLabel: {
@@ -223,7 +222,7 @@ export default class Result extends React.Component {
         type: 'value',
         nameTextStyle: {
           color: '#fff',
-          fontSize: 10
+          fontSize: 6
         },
         axisLine: { lineStyle: { color: '#fff' } },
         axisLabel: {
@@ -238,7 +237,7 @@ export default class Result extends React.Component {
         type: 'value',
         nameTextStyle: {
           color: '#fff',
-          fontSize: 10
+          fontSize: 6
         },
         axisLine: { lineStyle: { color: '#fff' } },
         axisLabel: {
@@ -319,26 +318,9 @@ export default class Result extends React.Component {
     this.setState({ thumbnailKeys: [...set] });
   };
 
-  goFull = (key) => {
-    this.setState({
-      fullScreen: {
-        content: key,
-        isFull: true
-      }
-    })
-  }
-  closeFull = () => {
-    this.setState({
-      fullScreen: {
-        isFull: false,
-        content: ''
-      }
-    });
-  }
   render() {
     // const dataJson = this.props.calResult;
-    const { thumbnailKeys, fullScreen } = this.state;
-
+    const { thumbnailKeys } = this.state;
     return (<div>
       <h3>结果展示</h3>
       <div className="allCharts">
@@ -352,9 +334,8 @@ export default class Result extends React.Component {
                     option={this.getOption(data)}
                     theme="Imooc"
                     style={{ height: '200px', width: '290px' }} />
-                  <span>{moment(data.time).format('YYYY-MM-DD HH:mm:ss')}</span>
+                  <span>{moment(data.time).format('YYYY-MM-DD h:mm:ss')}</span>
                   <span className="minimize" onClick={() => this.handleMinimize(data.time)}>缩小</span>
-                  <span className="minimize" onClick={() => this.goFull(data.time)}>放大</span>
                 </div>
               ))
           }
@@ -364,7 +345,7 @@ export default class Result extends React.Component {
             this.state.calResults
               .filter(data => thumbnailKeys.findIndex(key => key === data.time) !== -1)
               .map((data, key) => (
-                <div className="thumbnail-wrapper" key={data.time} title={moment(data.time).format('YYYY-MM-DD HH:mm:ss')}
+                <div className="thumbnail-wrapper" key={data.time} title={moment(data.time).format('YYYY-MM-DD h:mm:ss')}
                   onClick={() => this.handelMaximize(data.time)}>
                   <ReactEcharts
                     option={this.getOption(data)}
@@ -373,27 +354,6 @@ export default class Result extends React.Component {
                       height: '200px', width: '290px', transform: 'scale(0.2)', transformOrigin: '0 0'
                     }} />
                   <div className="mask"></div>
-                </div>
-              ))
-          }
-        </div>
-      </div>
-      <div className={`fullscreen-container ${fullScreen.isFull === false ? 'unshow' : ''}`}>
-        <span onClick={this.closeFull} style={{ right: '10px', position: 'absolute' }}>
-          关闭
-        </span>
-        <div style={{ margin: '20px 60px' }}>
-          {
-            this.state.calResults
-              .filter(data => data.time === fullScreen.content)
-              .map((data, key) => (
-                <div className="chart-wrapper" key={data.time}>
-                  <ReactEcharts
-                    option={this.getOption(data)}
-                    theme="Imooc"
-                    style={{ height: '70vh' }}
-                  />
-                  <span>{moment(data.time).format('YYYY-MM-DD HH:mm:ss')}</span>
                 </div>
               ))
           }
