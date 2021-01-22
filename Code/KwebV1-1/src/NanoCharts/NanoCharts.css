@@ -1,0 +1,18 @@
+.type-box{
+  height: 200px;
+  width: 200px;
+  position: absolute;
+  right: 0;
+  text-align: center;
+}
+.lv1-box{
+  height: 200px;
+  width: 420px;
+  position: absolute;
+  left: -30px;
+}
+.charts-container{
+  height: 200px;
+  width: 600px;
+  position: relative;
+}
