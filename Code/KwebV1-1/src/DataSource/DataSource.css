@@ -1,0 +1,20 @@
+.option-name {
+  display: inline-block;
+  margin: 8px 10px 0 0;
+}
+
+.data-option {
+  text-align: left;
+  margin: 0 5px 20px 0;
+  display: flex;
+}
+
+.data-select {
+  width: 150px;
+}
+
+.data-source-button {
+  width: 150px;
+  left: 100px;
+  position: absolute;
+}
