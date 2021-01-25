@@ -1,0 +1,25 @@
+#Title{
+    font-size: 17px;
+}
+.Parameter{
+    text-align:left;
+    margin-left:5px;
+    /* margin-top:10px; */
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+}
+.Parameter-Select{
+    /* position: relative; */
+    /* left: 100px; */
+    /* top:15px; */
+}
+.Parameter-Unit-Select{
+    /* position: relative; */
+    /* left: 200px; */
+    /* top:15px; */
+    margin-left: 6px;
+}
+.paramter-title {
+    width: 90px;
+}

@@ -1,0 +1,7 @@
+html {
+  width:100vw;
+  overflow-y:hidden;
+}
+.tick text{
+  font-size: 9px;
+}
