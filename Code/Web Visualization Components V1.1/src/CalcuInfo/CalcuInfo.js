@@ -49,7 +49,7 @@ export default class CalcuInfo extends React.Component {
 
   //获取初始状态json
   loadJsonData = () => {
-    const url = "http://192.168.9.32:8011/monitoring/application?status=running";
+    const url = "http://192.168.200.149:8011/monitoring/application?status=running";
 	return fetch(url)
       .then((response) => response.json())
       .then((responseJson) => {
@@ -81,7 +81,7 @@ export default class CalcuInfo extends React.Component {
   //获取定时请求json
   loadJsonData2 = () => {
     //const url = "http://localhost:8011/monitoring/application?displayDetail=false&status=running";
-    const url = "http://192.168.9.32:8011/monitoring/application?id="+this.state.app_id;
+    const url = "http://192.168.200.149:8011/monitoring/application?id="+this.state.app_id;
     return fetch(url)
       .then((response) => response.json())
       .then((responseJson) => {
@@ -209,7 +209,7 @@ export default class CalcuInfo extends React.Component {
       ktype: KType,
       dataName: DataName,
     };
-    const url = 'http://192.168.9.32:8011/spark/submit/kfunction';
+    const url = 'http://192.168.200.149:8011/spark/submit/kfunction';
     console.log(JSON.stringify(commitParam));
     // 能正确请求到结果
     fetch(url,{
@@ -232,7 +232,7 @@ export default class CalcuInfo extends React.Component {
     var interval = setInterval(function() {
 		  console.log(i);
 		  console.log(loadJsonDataSuccess);
-      if(i < 20 && !loadJsonDataSuccess) {
+      if(i < 100 && !loadJsonDataSuccess) {
          i++;
          that.loadJsonData();
       }

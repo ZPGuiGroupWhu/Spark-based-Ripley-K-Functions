@@ -19,7 +19,7 @@ let ID = 10;
 export default class Map extends React.Component {
   constructor(props) {
     super(props);
-    this.jsonDataCache = LocalJsonData;
+    this.jsonDataCache = [];
     this.state = {
       id: 0,
       layers: null,
@@ -121,7 +121,7 @@ export default class Map extends React.Component {
 
   loadJsonData = (scale) => {
     var url = "http://localhost:8011/nanocubeGridV4?hostname=http://192.168.213.130:51234&level=" + scale;
-    if(this.props.DataMap!=null) url = "http://localhost:8011/"+this.props.DataMap["nanoURL"]+"&level=" + scale;
+    if(this.props.DataMap!=null) url = "http://192.168.200.160:8011/"+this.props.DataMap["nanoURL"]+"&level=" + scale;
     // console.log("Map -> url", url)
     return fetch(url)
       .then((response) => response.json())

@@ -16,7 +16,7 @@ export default class DataSource extends React.Component {
 
 
     new Promise(resolve => {
-      fetch('http://localhost:8080/spark/DataSource.do')
+      fetch('http://192.168.200.149:8011/spark/DataSource.do')
       .then((response) => response.json())
       .then((responseJson) => {
         resolve(responseJson);
@@ -35,7 +35,8 @@ export default class DataSource extends React.Component {
       this.setState({
         dataSources: DataArray
       });
-      this.changeDataSource(DataArray[0]);
+      //this.changeDataSource(DataArray[0]);
+      this.changeDataSource('chongqing.csv');
     })
   }
 
@@ -48,7 +49,7 @@ export default class DataSource extends React.Component {
     //TODO 离线版本用LocalDataMap
     // this.props.changeDataMap(LocalDataMap[index]);
 
-    const url = 'http://localhost:8080/spark/SetDataSource.do';
+    const url = 'http://192.168.200.149:8011/spark/SetDataSource.do';
     const urlParam = getURLWithParam(url, commitParam);
     fetch(urlParam)
     .then((response) => response.json())
@@ -84,7 +85,7 @@ export default class DataSource extends React.Component {
     return <div>
       <h3>{this.props.titleName}</h3>
       <div className="data-option">{intl.get('SELECT_DATA')}
-        <Select className="data-source-button" placeholder={this.state.dataSources[0]} onChange={index => { this.changeDataSource(index) }}>
+        <Select className="data-source-button" placeholder={'chongqing.csv'} onChange={index => { this.changeDataSource(index) }}>
           {
             this.state.dataSources.length && this.state.dataSources.map((item, index) => (
               <Select.Option key={index} value={item}>{item}</Select.Option>)

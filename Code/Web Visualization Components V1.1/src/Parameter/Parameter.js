@@ -73,7 +73,8 @@ export default class Parameter extends React.Component {
 						<Select defaultValue="ST" className="Parameter-Select" onChange={value => { this.changeParams(value, 'KType') }} >
 							<Option value="Cross">{intl.get('CROSS_K_FUNCTION')}</Option>
 							<Option value="ST">{intl.get('ST_K_FUNCTION')}</Option>
-							<Option value="S" >{intl.get('LOCAL_K_FUNCTION')}</Option>
+							<Option value="L" >{intl.get('LOCAL_K_FUNCTION')}</Option>
+							<Option value="S" >{intl.get('SPACE_K_FUNCTION')}</Option>
 						</Select>
 					</div>
 					<div className="Parameter">
