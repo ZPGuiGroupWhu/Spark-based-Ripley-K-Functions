@@ -83,7 +83,7 @@ export default class DataSource extends React.Component {
     // };
 
     return <div>
-      <h3>{this.props.titleName}</h3>
+      <h3 style={{"font-size":"12pt"}}>{this.props.titleName}</h3>
       <div className="data-option">{intl.get('SELECT_DATA')}
         <Select className="data-source-button" placeholder={'chongqing.csv'} onChange={index => { this.changeDataSource(index) }}>
           {

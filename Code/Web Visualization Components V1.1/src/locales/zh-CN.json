@@ -24,7 +24,7 @@
   "CROSS_K_FUNCTION": "交叉K函数",
   "ST_K_FUNCTION": "时空K函数",
   "LOCAL_K_FUNCTION": "局部K函数",
-  "INPUT": "入参",
+  "INPUT": "点属性过滤",
   "MAX_SPATIAL_DISTANCE": "最大空间距离",
   "MAX_TEMPORAL_DISTANCE": "最大时间距离",
   "SPACE_STEP": "空间步长",

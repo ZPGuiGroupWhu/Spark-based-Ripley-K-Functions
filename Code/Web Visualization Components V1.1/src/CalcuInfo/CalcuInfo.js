@@ -68,6 +68,7 @@ export default class CalcuInfo extends React.Component {
           }
           this.setState({app_id:id_temp});
           //根据读取到的运行任务信息渲染
+          document.getElementById("NodeCount").innerHTML="集群当前计算节点数：<span id='count'>asd</span>"
           document.getElementById("count").innerHTML = this.jsonDataCache.activeNodeCount;
           var taskCommitTime=new Date();
           this.setState({app_time:taskCommitTime});
@@ -129,7 +130,7 @@ export default class CalcuInfo extends React.Component {
     return {
       series:[
         {
-          name: '计算速率',
+          name: '请求中',
           type: 'liquidFill',
           radius:'80%',
           center:['60%','50%'],
@@ -170,7 +171,7 @@ export default class CalcuInfo extends React.Component {
 
   startCalcu = () => {
     document.getElementById("details").style.display="block"; //------------------------
-    
+    document.getElementById("NodeCount").innerHTML="正在请求中，请稍候"
     const params = this.props.params;
     const {KType, DataName, DataCate, SpatialMax, TimeMax, SpatialStep, TimeStep, simuTime} = params;
 
@@ -237,6 +238,10 @@ export default class CalcuInfo extends React.Component {
          that.loadJsonData();
       }
 	    else{
+        if(!loadJsonDataSuccess)
+        {
+          document.getElementById("NodeCount").innerHTML="请求失败！请重试"
+        }
 		    clearInterval(interval);
 		    loadJsonDataSuccess=false;
 	    }}, 3000);
@@ -339,7 +344,7 @@ export default class CalcuInfo extends React.Component {
   render() {
     
     return <div className="calcuInfo" style={{float:'none',width:290,display:'inline-block'}}>
-        <h3>集群计算信息</h3>
+        <h3 style={{"font-size":"12pt"}}>集群计算信息</h3>
         { 
           this.state.calcuState === CALCUSTATE.BEFRORECALCU &&
           <div>
@@ -349,7 +354,7 @@ export default class CalcuInfo extends React.Component {
                 <ReactEcharts
                 option={this.getOption()} style={{width:80,height:70,float:'left',padding:'20 0 0 30'}}
                 />
-                <h3 style={{height:60,width:120,float:'left',padding:'16px 0 0 35px'}}>集群当前计算节点数：<span id='count'>asd</span></h3>
+                <h3 id= "NodeCount"style={{height:60,width:120,float:'left',padding:'16px 0 0 35px'}}>集群当前计算节点数：<span id='count'>asd</span></h3>
                 <br/>
             
               </div>

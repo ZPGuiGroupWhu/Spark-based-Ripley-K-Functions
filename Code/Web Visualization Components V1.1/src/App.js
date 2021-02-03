@@ -30,9 +30,9 @@ export default class App extends React.Component {
         isRShow: true,
         isGShow: true,
         isBShow: true,
-        RContent: 1,
-        GContent: 2,
-        BContent: 3,
+        RContent: 0,
+        GContent: 1,
+        BContent: 2,
       },
       layer: 1,
       params: {
@@ -159,7 +159,7 @@ export default class App extends React.Component {
             <DataIntro ChartData={this.state.ChartData} />
           </ModuleContainer>
           <ModuleContainer title={intl.get('CONTROL_PANEL')} hidden={layer === 2}>
-            <VisualController changeDimension={this.changeDimension} changeColor={this.changeColor} changeScale={this.changeScale} />
+            <VisualController changeDimension={this.changeDimension} changeColor={this.changeColor} changeScale={this.changeScale} DataMap={this.state.DataMap}/>
           </ModuleContainer>
           <ModuleContainer title={intl.get('LAYER_OPTIONS')} close="true">
             <Layer changeLayer={this.changeLayer} />

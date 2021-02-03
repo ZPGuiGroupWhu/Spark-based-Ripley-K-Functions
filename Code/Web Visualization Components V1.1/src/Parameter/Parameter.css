@@ -13,11 +13,13 @@
     /* position: relative; */
     /* left: 100px; */
     /* top:15px; */
+    width: 100px;
 }
 .Parameter-Unit-Select{
     /* position: relative; */
     /* left: 200px; */
     /* top:15px; */
+    width: 100px;
     margin-left: 6px;
 }
 .paramter-title {

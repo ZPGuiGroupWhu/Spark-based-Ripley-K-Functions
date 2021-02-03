@@ -5,13 +5,13 @@ import { Select } from 'antd';
 import { InputNumber } from 'antd';
 import intl from 'react-intl-universal';
 
-const dataAttri = ['第一产业', '第二产业', '第三产业'];
 let timer = null;
 
 export default class Parameter extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			dataAttri:['第一类别','第二类别'],
 			KType: 'ST',
 			DataCate1: 0,
 			DataCate2: 1,
@@ -26,6 +26,7 @@ export default class Parameter extends React.Component {
 	componentDidUpdate(prevProps) {
 		if (prevProps.DataMap !== this.props.DataMap) {
 			var Setting=this.props.DataMap["setting"];
+			this.setState({dataAttri:this.props.DataMap['attriList']})
 			const {maxSpatialDistance, maxTemporalDistance, simuTime, spatialStep, temporalStep } = Setting;
 			// this.setState({'SpatialMax':maxSpatialDistance,'TimeMax':maxTemporalDistance,'SpatialStep':spatialStep,'TimeStep':temporalStep,'simuTime':simuTime});
 			
@@ -66,7 +67,7 @@ export default class Parameter extends React.Component {
 		const { Option } = Select;
 		return (
 			<div>
-				<h3>{intl.get('KFUNCTION_PARAMETER')}</h3>
+				<h3 style={{"font-size":"12pt"}}>{intl.get('KFUNCTION_PARAMETER')}</h3>
 				<div>
 					<div className="Parameter">
 						<div className="paramter-title">{intl.get('KFUNCTION_TYPE')}</div>
@@ -79,16 +80,16 @@ export default class Parameter extends React.Component {
 					</div>
 					<div className="Parameter">
 						<div className="paramter-title">{intl.get('INPUT')}</div>
-						<Select defaultValue={dataAttri[0]} className="Parameter-Select" onChange={value => { this.changeParams(value, 'DataCate1') }} >
+						<Select defaultValue={this.state.dataAttri[0]} className="Parameter-Select" onChange={value => { this.changeParams(value, 'DataCate1') }} >
 							{
-								dataAttri.length && dataAttri.map((item, index) => (
+								this.state.dataAttri.length && this.state.dataAttri.map((item, index) => (
 									<Option key={index} value={index}>{item}</Option>)
 								)
 							}
 						</Select>
-						<Select defaultValue={dataAttri[1]} disabled={this.state.KType !== 'Cross'} className="Parameter-Unit-Select" onChange={value => { this.changeParams(value, 'DataCate2') }}>
+						<Select defaultValue={this.state.dataAttri[1]} disabled={this.state.KType !== 'Cross'} className="Parameter-Unit-Select" onChange={value => { this.changeParams(value, 'DataCate2') }}>
 							{
-								dataAttri.length && dataAttri.map((item, index) => (
+								this.state.dataAttri.length && this.state.dataAttri.map((item, index) => (
 									<Option key={index} value={index}>{item}</Option>)
 								)
 							}

@@ -9,15 +9,21 @@ export default class VisualController extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      attriList:[],
       isRShow: true,
       isGShow: true,
       isBShow: true,
-      RContent: 1,
-      GContent: 2,
-      BContent: 3
+      RContent: 0,
+      GContent: 1,
+      BContent: 2
     };
   }
-
+  componentDidUpdate(prevProps){
+    if(prevProps.DataMap !== this.props.DataMap)
+    {
+      this.setState({attriList:this.props.DataMap['attriList']})
+    }
+  }
   changeDimension = (isChecked) => {
     this.props.changeDimension(isChecked);
   }
@@ -43,32 +49,32 @@ export default class VisualController extends React.Component {
   }
 
   changeRContent = (index) => {
-    switch (index)
+    for (var i=0;i<this.state.attriList.length;i++)
     {
-      case '第一产业': this.setState({ RContent: 1 }, this.changeColor);break;
-      case '第二产业': this.setState({ RContent: 2 }, this.changeColor);break;
-      case '第三产业': this.setState({ RContent: 3 }, this.changeColor);break;
-      default:break;
+      if(index==this.state.attriList[i])
+      {
+        this.setState({ RContent: i }, this.changeColor);break;
+      }
     }
   }
 
   changeGContent = (index) => {
-    switch (index)
+    for (var i=0;i<this.state.attriList.length;i++)
     {
-      case '第一产业': this.setState({ GContent: 1 }, this.changeColor);break;
-      case '第二产业': this.setState({ GContent: 2 }, this.changeColor);break;
-      case '第三产业': this.setState({ GContent: 3 }, this.changeColor);break;
-      default:break;
+      if(index==this.state.attriList[i])
+      {
+        this.setState({ GContent: i }, this.changeColor);break;
+      }
     }
   }
 
   changeBContent = (index) => {
-    switch (index)
+    for (var i=0;i<this.state.attriList.length;i++)
     {
-      case '第一产业': this.setState({ BContent: 1 }, this.changeColor);break;
-      case '第二产业': this.setState({ BContent: 2 }, this.changeColor);break;
-      case '第三产业': this.setState({ BContent: 3 }, this.changeColor);break;
-      default:break;
+      if(index==this.state.attriList[i])
+      {
+        this.setState({ BContent: i }, this.changeColor);break;
+      }
     }
   }
 
@@ -79,9 +85,9 @@ export default class VisualController extends React.Component {
       min: 10,
       step: 1,
     };
-    const attriList = ['第一产业', '第二产业', '第三产业'];
+    var attriList = this.state.attriList;
     return <div>
-      <h3>{intl.get('POI_DISPLAY_MODULE')}</h3>
+      <h3 style={{"font-size":"12pt"}}>{intl.get('POI_DISPLAY_MODULE')}</h3>
       <div className="option-name">{intl.get('SCALE_OPTIONS')}</div>
       <Slider className="module-slider" max={slideParam.max} min={slideParam.min} step={slideParam.step} defaultValue={14}
         onChange={this.changeScale} />

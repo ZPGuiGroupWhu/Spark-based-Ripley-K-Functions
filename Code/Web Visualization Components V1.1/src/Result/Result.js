@@ -335,12 +335,37 @@ export default class Result extends React.Component {
       }
     });
   }
+  download =(key)=>{
+    this.state.calResults
+      .filter(data => data.time === key)
+      .map((data, key) => (
+        this.saveJSON(data,data.time+'.json')
+      ))
+  }
+  saveJSON = (data, filename)=>{
+    if (!data) {
+        alert('data is null');
+        return;
+    }
+    if (!filename) filename = 'json.json'
+    if (typeof data === 'object') {
+        data = JSON.stringify(data, undefined, 4)
+    }
+    var blob = new Blob([data], { type: 'text/json' });
+    var e = document.createEvent('MouseEvents');
+    var a = document.createElement('a');
+    a.download = filename;
+    a.href = window.URL.createObjectURL(blob);
+    a.dataset.downloadurl = ['text/json', a.download, a.href].join(':');
+    e.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+    a.dispatchEvent(e);
+  }
   render() {
     // const dataJson = this.props.calResult;
     const { thumbnailKeys, fullScreen } = this.state;
 
     return (<div>
-      <h3>结果展示</h3>
+      <h3 style={{"font-size":"12pt"}}>结果展示</h3>
       <div className="allCharts">
         <div className="results-container">
           {
@@ -355,6 +380,7 @@ export default class Result extends React.Component {
                   <span>{moment(data.time).format('YYYY-MM-DD HH:mm:ss')}</span>
                   <span className="minimize" onClick={() => this.handleMinimize(data.time)}>缩小</span>
                   <span className="minimize" onClick={() => this.goFull(data.time)}>放大</span>
+                  <span className="minimize" onClick={() => this.download(data.time)}>下载</span>
                 </div>
               ))
           }
