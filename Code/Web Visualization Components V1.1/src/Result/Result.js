@@ -1,4 +1,5 @@
 import React from 'react';
+import {Slider} from 'antd';
 
 //导入折线图
 import 'echarts/lib/chart/line';  //折线图是line,饼图改为pie,柱形图改为bar
@@ -9,8 +10,8 @@ import 'echarts/lib/component/markPoint';
 import 'echarts-gl';
 import ReactEcharts from 'echarts-for-react';
 // import data from './confidence.json';
-import dataJson from '../common/result.json';
-import dataJson1 from '../common/result1.json';
+// import dataJson from '../common/Local.json';
+// import dataJson1 from '../common/Wed Feb 03 2021 20_10_21 GMT+0800 (中国标准时间).json';
 import './Result.css';
 import { isEqual } from 'lodash';
 import moment from 'moment'
@@ -26,6 +27,8 @@ export default class Result extends React.Component {
     super(props);
     this.state = {
       thumbnailKeys: [],
+      index:[],
+      key:0,
       calResults:[],
       fullScreen: {
         isFull: false,
@@ -302,7 +305,19 @@ export default class Result extends React.Component {
   getOption = (dataJson) => {
     if (dataJson.KType === "ST") {
       return this.getOption3D(dataJson);
-    } else {
+    } else if(dataJson.KType === "L"){
+      if(this.state.index[dataJson.time]==null)this.state.index[dataJson.time]=0;
+      var dataNow = {
+        "maxSpatialDistance": dataJson.maxSpatialDistance,
+        "maxTemporalDistance": dataJson.maxTemporalDistance,
+        "temporalUnit": dataJson.temporalUnit,
+        "kmin":dataJson.kmin[this.state.index[dataJson.time]].k,
+        "kmax":dataJson.kmax[this.state.index[dataJson.time]].k,
+        "kest":dataJson.kest[this.state.index[dataJson.time]].k,
+        "KType":dataJson.KType
+      };
+      return this.getOption2D(dataNow);
+    } else{
       return this.getOption2D(dataJson);
     }
   };
@@ -360,6 +375,12 @@ export default class Result extends React.Component {
     e.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
     a.dispatchEvent(e);
   }
+
+  changeScale = (value,key) => {
+    this.state.index[key]=value-1;
+    this.setState({key:value})
+  }
+
   render() {
     // const dataJson = this.props.calResult;
     const { thumbnailKeys, fullScreen } = this.state;
@@ -377,6 +398,7 @@ export default class Result extends React.Component {
                     option={this.getOption(data)}
                     theme="Imooc"
                     style={{ height: '200px', width: '290px' }} />
+                  <div hidden={data.KType !== "L"}><Slider style = {{width:'240px',marginLeft:'30px'}}max={data.kmax.length} min={1} step={1} defaultValue={1} onChange={(value) => this.changeScale(value,data.time)}/></div>
                   <span>{moment(data.time).format('YYYY-MM-DD HH:mm:ss')}</span>
                   <span className="minimize" onClick={() => this.handleMinimize(data.time)}>缩小</span>
                   <span className="minimize" onClick={() => this.goFull(data.time)}>放大</span>

@@ -173,7 +173,7 @@ export default class CalcuInfo extends React.Component {
     document.getElementById("details").style.display="block"; //------------------------
     document.getElementById("NodeCount").innerHTML="正在请求中，请稍候"
     const params = this.props.params;
-    const {KType, DataName, DataCate, SpatialMax, TimeMax, SpatialStep, TimeStep, simuTime} = params;
+    const {KType, DataName, DataName_2,DataCate, SpatialMax, TimeMax, SpatialStep, TimeStep, simuTime} = params;
 
 
 
@@ -195,12 +195,12 @@ export default class CalcuInfo extends React.Component {
 
 
 
-    if(KType === 'Cross'){
-      if(params.DataCate[0] === params.DataCate[1]){
-        alert('交叉K函数入参点数据类型不能相同');
-        return false;
-      }
-    }
+    // if(KType === 'Cross'){
+    //   if(params.DataCate[0] === params.DataCate[1]){
+    //     alert('交叉K函数入参点数据类型不能相同');
+    //     return false;
+    //   }
+    // }
     const commitParam = {
       maxSpatialDistance: SpatialMax,
       maxTemporalDistance: TimeMax,
@@ -209,6 +209,7 @@ export default class CalcuInfo extends React.Component {
       simulationTimes: simuTime,
       ktype: KType,
       dataName: DataName,
+      dataName2:DataName_2,
     };
     const url = 'http://192.168.200.149:8011/spark/submit/kfunction';
     console.log(JSON.stringify(commitParam));

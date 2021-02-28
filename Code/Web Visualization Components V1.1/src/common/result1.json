@@ -1,5 +1,5 @@
 {
-    "KType": "Cross",
+    "KType": "L",
     "maxSpatialDistance": 2000.0,
     "maxTemporalDistance": 20,
     "temporalUnit": "MONTHS",
