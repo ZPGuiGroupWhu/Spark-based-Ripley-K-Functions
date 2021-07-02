@@ -29,6 +29,8 @@
     "MAX_TEMPORAL_DISTANCE": "Maximum Temporal Distance",
     "SPACE_STEP": "Space Step",
     "TIME_STEP": "Time Step",
+    "SPACE_iterations":"SPACE_iterations",
+    "TIME_iterations":"TIME_iterations",
     "SIMULATION_TIMES": "Simulation Times",
     "COMPUTING_INFO": "Computing Information",
     "CLUSTER_COMPUTING_INFO": "Cluster Computing Information",
@@ -40,5 +42,7 @@
     "CLOSE": "Close",
     "RED": "R",
     "GREEN": "G",
-    "BLUE": "B"
+    "BLUE": "B",
+    "Partition":"Partition",
+    "Index":"Index"
 }

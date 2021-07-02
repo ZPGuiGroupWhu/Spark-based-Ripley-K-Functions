@@ -7,10 +7,11 @@ import ReactEcharts from 'echarts-for-react';
 import Scrollbars from 'react-custom-scrollbars';
 import data_state from '../common/running.json';
 //import 'function.js';
-import H_S from '../common/hubei_S.json';
+import H_S from '../common/result_S.json';
 import H_ST from '../common/hubei_ST.json';
-import C_S from '../common/result1.json';
+import C_S from '../common/result_S.json';
 import C_ST from '../common/chongqing_ST.json';
+import L_sample from '../common/Local.json'
 
 
 
@@ -179,18 +180,22 @@ export default class CalcuInfo extends React.Component {
 
 
     //TODO 根据K函数类型和数据名称选用相应的本地结果文件
-    // var LocalresponseJson='';
-    // if(KType=='ST')
-    // {
-    //   if(DataName=='hubei.csv')LocalresponseJson=H_ST;
-    //   else LocalresponseJson=C_ST;
-    // }
-    // else
-    // {
-    //   if(DataName=='hubei.csv')LocalresponseJson=H_S;
-    //   else LocalresponseJson=C_S;
-    // }
-    // this.props.getCalResult(LocalresponseJson);
+    var LocalresponseJson='';
+    if(KType=='ST')
+    {
+      if(DataName=='hubei.csv')LocalresponseJson=H_ST;
+      else LocalresponseJson=C_ST;
+    }
+    else if(KType == 'L')
+    {
+      LocalresponseJson=L_sample
+    }
+    else
+    {
+      if(DataName=='hubei.csv')LocalresponseJson=H_S;
+      else LocalresponseJson=C_S;
+    }
+    this.props.getCalResult(LocalresponseJson);
 
 
 
@@ -342,10 +347,18 @@ export default class CalcuInfo extends React.Component {
     this.state.flag = 1;
   }
 
+  openCluster = ()=>{
+    window.open('http://192.168.200.149:8080/','_blank')
+  }
+
+  openTask = ()=>{
+    window.open('http://192.168.200.149:8088/','_blank')
+  }
+
   render() {
     
     return <div className="calcuInfo" style={{float:'none',width:290,display:'inline-block'}}>
-        <h3 style={{"font-size":"12pt"}}>集群计算信息</h3>
+        <h3 style={{"fontSize":"12pt"}}>集群计算信息</h3>
         { 
           this.state.calcuState === CALCUSTATE.BEFRORECALCU &&
           <div>
@@ -405,11 +418,12 @@ export default class CalcuInfo extends React.Component {
                   <h3 style={{float:'left',marginBottom:'0px',padding:'2px 0 0 0'}}>spark原生监控：</h3>
                   <div style={{float:'left',width:'290px',paddingTop:'2px'}}>
                     <span>
-                    <Button className="linkb" style={{}} οnclick="window.open('http://192.168.50.131:8080')">任务监控UI</Button>
+                    {/* <Button className="linkb" style={{}} οnclick="window.open('http://192.168.50.131:8080')">任务监控UI</Button> */}
+                    <Button className="linkb" style={{}} onClick={this.openCluster}>集群监控UI</Button>
                     </span>
                   
                     <span>
-                    <Button className="linkb" style={{}} οnclick="window.open('http://192.168.50.131:4040')">应用监控UI</Button>
+                    <Button className="linkb" style={{}} onClick={this.openTask}>任务监控UI</Button>
                     </span>
                   </div>
                 </div>

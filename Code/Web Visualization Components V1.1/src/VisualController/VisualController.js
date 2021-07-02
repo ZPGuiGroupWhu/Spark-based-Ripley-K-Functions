@@ -87,7 +87,7 @@ export default class VisualController extends React.Component {
     };
     var attriList = this.state.attriList;
     return <div>
-      <h3 style={{"font-size":"12pt"}}>{intl.get('POI_DISPLAY_MODULE')}</h3>
+      <h3 style={{"fontSize":"12pt"}}>{intl.get('POI_DISPLAY_MODULE')}</h3>
       <div className="option-name">{intl.get('SCALE_OPTIONS')}</div>
       <Slider className="module-slider" max={slideParam.max} min={slideParam.min} step={slideParam.step} defaultValue={14}
         onChange={this.changeScale} />

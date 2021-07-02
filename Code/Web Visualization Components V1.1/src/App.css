@@ -11,11 +11,9 @@
 .hidden{
   display: none;
 }
-
 .hidden_2{
   visibility:hidden;
 }
-
 .bottom {
   bottom: 0;
 }

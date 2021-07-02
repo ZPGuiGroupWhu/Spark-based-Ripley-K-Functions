@@ -130,7 +130,7 @@ export default class DataIntro extends React.Component {
 
   render() {
     return <div>
-      <h3 style={{"font-size":"12pt"}}>{intl.get('POI_OVERVIEW')}</h3>
+      <h3 style={{"fontSize":"12pt"}}>{intl.get('POI_OVERVIEW')}</h3>
       <ReactEcharts option={this.getOption()} theme="Imooc" style={{ height: '200px' }} />
     </div>
   }

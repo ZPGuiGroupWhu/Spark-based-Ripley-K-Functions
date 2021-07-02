@@ -29,7 +29,7 @@ export default class Layer extends React.Component {
     };
     return (
       <div>
-        <h3 style={{"font-size":"12pt"}}>{intl.get('LAYER_OPTIONS')}</h3>
+        <h3 style={{"fontSize":"12pt"}}>{intl.get('LAYER_OPTIONS')}</h3>
         <Radio.Group onChange={this.onChange} value={this.state.value}>
           <Radio style={radioStyle} value={1}>
             Deckgl

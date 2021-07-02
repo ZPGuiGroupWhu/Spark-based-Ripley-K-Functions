@@ -50,7 +50,7 @@ export default class DataRange extends React.Component {
     };
     const dateFormat = 'YYYY/MM/DD';
     return <div className="data-range">
-      <h3 style={{"font-size":"12pt"}}>{intl.get('ST_RANGE')}</h3>
+      <h3 style={{"fontSize":"12pt"}}>{intl.get('ST_RANGE')}</h3>
       <div className="option-name">{intl.get('GEO_EXTENT')}</div><br /><br />
       {/* <Radio.Group > */}
         <Checkbox onChange={index => { this.onCheckChange(index) }} style={radioStyle}>

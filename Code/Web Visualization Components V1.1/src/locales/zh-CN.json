@@ -25,10 +25,12 @@
   "ST_K_FUNCTION": "时空K函数",
   "LOCAL_K_FUNCTION": "局部K函数",
   "INPUT": "点属性过滤",
-  "MAX_SPATIAL_DISTANCE": "最大空间距离",
-  "MAX_TEMPORAL_DISTANCE": "最大时间距离",
+  "MAX_SPATIAL_DISTANCE": "最大空间阈值",
+  "MAX_TEMPORAL_DISTANCE": "最大时间阈值",
   "SPACE_STEP": "空间步长",
   "TIME_STEP": "时间步长",
+  "SPACE_iterations":"空间迭代次数",
+  "TIME_iterations":"时间迭代次数",
   "SIMULATION_TIMES": "模拟次数",
   "COMPUTING_INFO": "计算信息",
   "CLUSTER_COMPUTING_INFO": "集群计算信息",
@@ -40,5 +42,7 @@
   "CLOSE": "关闭",
   "RED": "红",
   "GREEN": "绿",
-  "BLUE": "蓝"
+  "BLUE": "蓝",
+  "Partition":"分区方法",
+  "Index":"索引方法"
 }

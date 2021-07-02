@@ -11,7 +11,7 @@ export default class DataSource extends React.Component {
     this.state = {dataSources: ['chongqing.csv','hubei.csv']};
 
 //TODO 测试用代码，记得删除
-    // this.changeDataSource('chongqing.csv');
+    this.changeDataSource('chongqing.csv');
 
 
 
@@ -47,7 +47,7 @@ export default class DataSource extends React.Component {
     };
 
     //TODO 离线版本用LocalDataMap
-    // this.props.changeDataMap(LocalDataMap[index]);
+    this.props.changeDataMap(LocalDataMap[index]);
 
     const url = 'http://192.168.200.149:8011/spark/SetDataSource.do';
     const urlParam = getURLWithParam(url, commitParam);
@@ -83,7 +83,7 @@ export default class DataSource extends React.Component {
     // };
 
     return <div>
-      <h3 style={{"font-size":"12pt"}}>{this.props.titleName}</h3>
+      <h3 style={{"fontSize":"12pt"}}>{this.props.titleName}</h3>
       <div className="data-option">{intl.get('SELECT_DATA')}
         <Select className="data-source-button" placeholder={'chongqing.csv'} onChange={index => { this.changeDataSource(index) }}>
           {
@@ -93,7 +93,7 @@ export default class DataSource extends React.Component {
           }
         </Select>
       </div>
-      <div className="data-option">{intl.get('UPLOAD_DATA')}
+      <div className="data-option" hidden={true}>{intl.get('UPLOAD_DATA')}
         <Upload className="data-source-button" >
           <Button style={{ width: '150px' }}>
             <Icon type="upload" /> Click to Upload

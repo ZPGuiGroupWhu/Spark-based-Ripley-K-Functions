@@ -67,7 +67,7 @@ export default class Parameter extends React.Component {
 		const { Option } = Select;
 		return (
 			<div>
-				<h3 style={{"font-size":"12pt"}}>{intl.get('KFUNCTION_PARAMETER')}</h3>
+				<h3 style={{"fontSize":"12pt"}}>{intl.get('KFUNCTION_PARAMETER')}</h3>
 				<div>
 					<div className="Parameter">
 						<div className="paramter-title">{intl.get('KFUNCTION_TYPE')}</div>
@@ -102,30 +102,44 @@ export default class Parameter extends React.Component {
 							<Option value="m">km</Option>
 						</Select>
 					</div>
-					<div className="Parameter">
+					{/* <div className="Parameter">
 						<div className="paramter-title">{intl.get('MAX_TEMPORAL_DISTANCE')}</div>
 						<InputNumber min={1} max={100} value={this.state.TimeMax} disabled={this.state.KType !== 'ST'} className="Parameter-Select" onChange={value => { this.changeParams(value, 'TimeMax') }} />
 						<Select defaultValue="month" disabled={this.state.KType !== 'ST'} className="Parameter-Unit-Select">
 							<Option value="month">month</Option>
 						</Select>
-					</div>
+					</div> */}
 					<div className="Parameter">
-						<div className="paramter-title">{intl.get('SPACE_STEP')}</div>
+						<div className="paramter-title">{intl.get('SPACE_iterations')}</div>
 						<InputNumber min={1} max={100000} value={this.state.SpatialStep} className="Parameter-Select" onChange={value => { this.changeParams(value, 'SpatialStep') }} />
-						<Select defaultValue="m" className="Parameter-Unit-Select" >
-							<Option value="m">km</Option>
+						<Select defaultValue="times" className="Parameter-Unit-Select" >
+							<Option value="times">times</Option>
 						</Select>
 					</div>
-					<div className="Parameter">
-						<div className="paramter-title">{intl.get('TIME_STEP')}</div>
+					{/* <div className="Parameter">
+						<div className="paramter-title">{intl.get('TIME_iterations')}</div>
 						<InputNumber min={1} max={100000} value={this.state.TimeStep} disabled={this.state.KType !== 'ST'} className="Parameter-Select" onChange={value => { this.changeParams(value, 'TimeStep') }} />
-						<Select defaultValue="month" disabled={this.state.KType !== 'ST'} className="Parameter-Unit-Select" >
-							<Option value="month">month</Option>
+						<Select defaultValue="times" disabled={this.state.KType !== 'ST'} className="Parameter-Unit-Select" >
+							<Option value="times">times</Option>
 						</Select>
-					</div>
+					</div> */}
 					<div className="Parameter">
 						<div className="paramter-title">{intl.get('SIMULATION_TIMES')}</div>
 						<InputNumber id="test_input" min={1} max={1000} value={this.state.simuTime} className="Parameter-Select" onChange={value => { this.changeParams(value, 'simuTime') }} />
+					</div>
+					<div className="Parameter">
+						<div className="paramter-title">{intl.get('Partition')}</div>
+						<Select defaultValue="KDB" className="Parameter-Select" onChange={value => {  }} >
+							<Option value="KDB">KDB</Option>
+							<Option value="Hilbert">Hilbert</Option>
+						</Select>
+					</div>
+					<div className="Parameter">
+						<div className="paramter-title">{intl.get('Index')}</div>
+						<Select defaultValue="R-Tree" className="Parameter-Select" onChange={value => {  }} >
+							<Option value="R-Tree">R-Tree</Option>
+							<Option value="Geohash">Geohash</Option>
+						</Select>
 					</div>
 				</div>
 			</div>

@@ -386,7 +386,7 @@ export default class Result extends React.Component {
     const { thumbnailKeys, fullScreen } = this.state;
 
     return (<div>
-      <h3 style={{"font-size":"12pt"}}>结果展示</h3>
+      <h3 style={{"fontSize":"12pt"}}>结果展示</h3>
       <div className="allCharts">
         <div className="results-container">
           {

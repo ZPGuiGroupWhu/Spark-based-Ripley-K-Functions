@@ -19,7 +19,10 @@ let ID = 10;
 export default class Map extends React.Component {
   constructor(props) {
     super(props);
-    this.jsonDataCache = [];
+    //TODO 测试用代码
+    this.jsonDataCache = LocalJsonData;
+    
+    // this.jsonDataCache = [];
     this.state = {
       id: 0,
       layers: null,
@@ -79,7 +82,7 @@ export default class Map extends React.Component {
   _renderTooltip() {
     const {hoveredMessage, pointerX, pointerY} = this.state || {};
     return hoveredMessage && (
-      <div style={{position: 'absolute', zIndex: 999, pointerEvents: 'none', left: pointerX, top: pointerY, color: '#fff', backgroundColor: 'rgba(100,100,100,0.5)',"white-space": "pre"}}>
+      <div style={{position: 'absolute', zIndex: 999, pointerEvents: 'none', left: pointerX, top: pointerY, color: '#fff', backgroundColor: 'rgba(100,100,100,0.5)',"whiteSpace": "pre"}}>
         { hoveredMessage }
       </div>
     );
@@ -92,32 +95,32 @@ export default class Map extends React.Component {
     if (!jsonData) {
       this.loadJsonData(this.props.scale).then(() => {
         this.setState({ layers: this.props.dimension === 3 ? [this.get3Dlayer(scale)] : [this.get2Dlayer(scale)] });
-        if(this.props.DataMap!=null)this.setState({ boundary:this.getBoundarylayer(JSON.parse(this.props.DataMap["boundaryData"]))});//Here
+        // if(this.props.DataMap!=null)this.setState({ boundary:this.getBoundarylayer(JSON.parse(this.props.DataMap["boundaryData"]))});//Here
         this.props.changePieChart(this.jsonDataCache[this.props.DataMap["id"]][scale].properties);
 
         //TODO 测试用代码,与上方注释代码切换使用
-        // if(this.props.DataMap["id"]=='chongqing'){
-        //   this.setState({ boundary:this.getBoundarylayer(SampleData)});
-        // }
-        // else
-        // {
-        //   this.setState({ boundary:this.getBoundarylayer(SampleData_2)});
-        // }
+        if(this.props.DataMap["id"]=='chongqing'){
+          this.setState({ boundary:this.getBoundarylayer(SampleData)});
+        }
+        else
+        {
+          this.setState({ boundary:this.getBoundarylayer(SampleData_2)});
+        }
 
       })
     } else {
       this.setState({ layers: this.props.dimension === 3 ? [this.get3Dlayer(scale)] : [this.get2Dlayer(scale)] });
-      if(this.props.DataMap!=null)this.setState({ boundary:this.getBoundarylayer(JSON.parse(this.props.DataMap["boundaryData"]))});//Here
+      // if(this.props.DataMap!=null)this.setState({ boundary:this.getBoundarylayer(JSON.parse(this.props.DataMap["boundaryData"]))});//Here
       this.props.changePieChart(this.jsonDataCache[this.props.DataMap["id"]][scale].properties);
 
         //TODO 测试用代码,与上方注释代码切换使用
-        // if(this.props.DataMap["id"]=='chongqing'){
-        //   this.setState({ boundary:this.getBoundarylayer(SampleData)});
-        // }
-        // else
-        // {
-        //   this.setState({ boundary:this.getBoundarylayer(SampleData_2)});
-        // }
+        if(this.props.DataMap["id"]=='chongqing'){
+          this.setState({ boundary:this.getBoundarylayer(SampleData)});
+        }
+        else
+        {
+          this.setState({ boundary:this.getBoundarylayer(SampleData_2)});
+        }
     }
   }
 
