@@ -16,7 +16,7 @@
         <jts.version>1.16.0</jts.version>
         <geotools.version>19.2</geotools.version>
         <jackson.version>2.6.7.1</jackson.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
     </properties>
 
     <dependencies>
