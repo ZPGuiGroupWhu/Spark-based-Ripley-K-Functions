@@ -7,9 +7,9 @@ Ripley's K functions and many other spatial analysis methods are compute-intensi
 The developed framework for K functions can be used for support varvious applications in many fields, such as geography, ecology, archaeology, epidemiology, criminology, sociology, economics, biology and medical science. 
 
 The calculation procedures of the K functions are optimized and accelerated by adopting four strategies:
-1) Spatiotemporal index based on R-tree is utilized to retrieve potential spatiotemporally neighboring points with less distance comparison; 
+1) Spatiotemporal index based on R-tree is utilized to retrieve potential spatiotemporally neighboring points with less distance comparison. Spatial index based on Geohash is applied to accelerate the pointwise distance measurements and improves the performance under large spatial distance threshold; 
 2) Spatiotemporal edge correction weights are reused by 2-tier cache to reduce repetitive computation in L value estimation and simulations; 
-3) Spatiotemporal partitioning using KDB-tree is adopted to decrease ghost buffer redundancy in partitions and support near-balanced distributed processing; 
+3) Spatiotemporal partitioning using KDB-tree is adopted to decrease ghost buffer redundancy in partitions and support near-balanced distributed processing. Spatial partitioning using Hilbert curve is provided to reduce the data tilt and communication cost between partitions; 
 4) Customized serialization with compact representations of spatiotemporal objects and indexes is developed to lower the cost of data transmission.
 
 Please refer to the published peer-review journal paper on Future Generation Computer Systems for more information: 
