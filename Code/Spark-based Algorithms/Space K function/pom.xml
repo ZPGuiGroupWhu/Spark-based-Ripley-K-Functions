@@ -12,7 +12,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <scala.compat.version>2.11</scala.compat.version>
         <spark.version>2.3.3</spark.version>
-        <hadoop.version>2.7.7</hadoop.version>
+        <hadoop.version>3.2.4</hadoop.version>
         <jts.version>1.16.0</jts.version>
         <geotools.version>19.2</geotools.version>
         <jackson.version>2.6.7.1</jackson.version>
